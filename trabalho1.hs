@@ -33,3 +33,37 @@ verificaNaAgenda ano mes dia horario = buscaC ano mes dia horario /= []
 ano = [(1,[(2,[(8,2)]),(3,[(8,1), (9,1)])]),(2,[(4,[(10,1)])])]
 
 --buscaC (c:cs) mes dia horario = if fst(c) == mes && 
+
+--horaFinal de um compromisso
+horaFinal c = if fst(c) + snd(c) > 12 then 14 + 12 - fst(c) else fst(c) + snd(c)
+
+--procurar elemento em uma lista, input: ls -> lista, ele -> elemento
+procuraElemento ls ele = [e | e <- ls, e == ele] /= []
+
+--retornar lista de dias de um mes com os compromissos de cada mes
+--input: agenda de compromissos, mes
+--output: lista de dias
+retornaListaDias ag mes = head [snd(x) | x <- ag, fst(x) == mes]
+
+--retornar compromissos de um dia
+--input: lista de dias de um mes, dia
+--output: lista dos compromissos do dia
+retornaCDia ldms dia = head [snd(x) | x <- ldms, fst(x) == dia]
+
+--remover elemento de uma lista, condição: não pode ser repetido
+--input: lista, elemento
+--output: lista atualizada
+removeElemento ls ele = [x | x <- ls, fst(x) /= ele]
+
+--remover compromisso da agenda
+--input: agenda, mes, dia, horario de inicio
+--output: lista atualizada
+rmC ag mes dia horario = removeElemento (retornaCDia (retornaListaDias ag mes) dia) horario
+
+--inserir compromisso em um dia de um mes
+--input: agenda, calendario, mes, dia, horario inicio, duracao
+--output: agenda atualizada
+insereC ag cal mes dia horario duracao = if procuraElemento snd(cal) 
+
+
+
