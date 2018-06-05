@@ -132,11 +132,10 @@ trataMenu opcao agenda calendario = do
 
 	else if opcao == "1" then
 		do 
-			agendaArq <- openFile "agenda.txt" ReadMode
-			agendaRec <- leAgenda agendaArq
-			putStrLn (show agendaRec)
-			hClose agendaArq
-			return (show agendaRec)
+			
+			putStrLn (show agenda)
+			
+			return (show agenda)
 
 	else if opcao == "2" then
 		do
@@ -149,7 +148,7 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite a duração: "
 			duracao <- getLine
 			putStrLn (show (disponibilidade agenda calendario (read mes :: Int) (read dia :: Int) (read inicio :: Int) (read duracao :: Int)))			
-			return ("Ok")
+			return (show agenda)
 		
 	else if opcao == "3" then
 		do
@@ -158,7 +157,7 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite o dia: "
 			dia <- getLine
 			putStrLn (show (horariosDisponiveis agenda calendario (read mes :: Int) (read dia :: Int)))
-			return ("Ok")
+			return (show agenda)
 	
 	else if opcao == "4" then
 		do
@@ -171,7 +170,7 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite a duração: "
 			duracao <- getLine
 			putStrLn (show (insere agenda calendario (read mes :: Int) (read dia :: Int) (read inicio :: Int) (read duracao :: Int)))
-			return ("Ok")
+			return (show (insere agenda calendario (read mes :: Int) (read dia :: Int) (read inicio :: Int) (read duracao :: Int)))
 	else if opcao == "5" then
 		do
 			putStr "Digite o mês: "
@@ -181,7 +180,7 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite a duração: "
 			duracao <- getLine
 			putStrLn (show (insereBreve agenda calendario (read mes :: Int) (read dia :: Int) (read duracao :: Int)))
-			return ("Ok")	
+			return (show (insereBreve agenda calendario (read mes :: Int) (read dia :: Int) (read duracao :: Int)))	
 
 	else if opcao == "6" then
 		do
@@ -190,7 +189,7 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite a duração: "
 			duracao <- getLine
 			putStrLn (show (insereMin agenda calendario (read mes :: Int) (read duracao :: Int)))
-			return ("Ok")	
+			return (show (insereMin agenda calendario (read mes :: Int) (read duracao :: Int)))	
 			
 	else if opcao == "7" then
 		do 
@@ -199,7 +198,7 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite a duração: "
 			duracao <- getLine
 			putStrLn (show (insereMax agenda calendario (read mes :: Int) (read duracao :: Int)))
-			return ("Ok")
+			return (show (insereMax agenda calendario (read mes :: Int) (read duracao :: Int)))
 
 	else if opcao == "8" then
 		do
@@ -210,7 +209,7 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite o horário: "
 			horario <- getLine
 			putStrLn (show (cancela agenda (read mes :: Int) (read dia :: Int) (read horario :: Int)))
-			return ("Ok")
+			return (show (cancela agenda (read mes :: Int) (read dia :: Int) (read horario :: Int)))
 
 	else if opcao == "9" then
 		do
@@ -229,17 +228,16 @@ trataMenu opcao agenda calendario = do
 			putStr "Digite a nova duração: "
 			novaDuracao <- getLine
 			putStrLn (show (reagenda agenda calendario (read mes :: Int) (read dia :: Int) (read horarioInicio :: Int) (read novoMes :: Int) (read novoDia :: Int) (read novoHorarioInicio :: Int) (read novaDuracao :: Int)))
-			return ("Ok")
+			return (show (reagenda agenda calendario (read mes :: Int) (read dia :: Int) (read horarioInicio :: Int) (read novoMes :: Int) (read novoDia :: Int) (read novoHorarioInicio :: Int) (read novaDuracao :: Int)))
 
 	else if opcao == "10" then
 		do
 			agendaArq <- openFile "agenda.txt" WriteMode
-			putStr "Digite a agenda: "
-			agendaLinha <- getLine
 			
-			escreveAgenda agendaArq (read agendaLinha :: CsAno)
+			
+			escreveAgenda agendaArq (agenda)
 			hClose agendaArq
-			return ("ok")
+			return (show agenda)
 			
 	else	
 		do 
@@ -256,4 +254,4 @@ menu agenda calendario = do
 			return ("fim")
 	else
 		do
-			menu agenda calendario
+			menu (read resultado :: CsAno) calendario
